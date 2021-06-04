@@ -1,6 +1,3 @@
-
-
-
 class Cafe:
     def __init__(self,name="",quantity=0):
         self._name = name
@@ -11,9 +8,11 @@ class Cafe:
         self._quantity=quantity
     def getName(self):
         return self._name
+    def getQuantity(self):
+        return self._quantity
     def __str__(self):
         return self._name +"(quantity=" + str(self._quantity) + ")\n"
-        
+
 class Drink(Cafe):
     pass
 
@@ -25,20 +24,12 @@ class Food(Cafe):
         set._isWarm=isWarm
     def getIsWarm(self):
         return self._isWarm
-   
+
+
 def main():
-    listOfMenus = obtainListOfMenus()
-    displayResults(listOfMenus)
-
-
-        
-        
-    
-            
-
-def obtainListOfMenus():
-    
     listOfMenus=[]
+    listOfNames=[]
+    listOfQuantity=[]
     carryOn='Y'
     while carryOn=='Y':
         name=input("Enter menu's name: ")
@@ -54,22 +45,39 @@ def obtainListOfMenus():
                 isWarm=False
             st=Food(name,quantity,isWarm)
         listOfMenus.append(st)
+        listOfNames.append(st._name)
+        listOfQuantity.append(st._quantity)
         carryOn=input("Do you wnat to continue?(Y or N")
         carryOn=carryOn.upper()
-    
-    return listOfMenus
-            
 
-def displayResults(listOfMenus):
-    print("*"*47)
-    print("Welcome to Hello cafe")
-    print("*"*47)
-    for pupil in listOfMenus:
-        print(pupil,end="")
-        
-    
-   
+    while True:
+        print("*"*47)
+        print("Welcome to Hello cafe")
+        print("*"*47)
+        for i in range(len(listOfNames)):
+            print(i+1,")",listOfNames[i],"(quantity:",listOfQuantity[i],")")
+
+        selectMenu=int(input("Enter menu"))-1
+        selectQuantity=int(input("Enter quantity"))
+        listOfQuantity[selectMenu] -= selectQuantity
+        if listOfQuantity[selectMenu]==0:
+            print("no left. delete " + listOfNames[selectMenu])
+            del listOfNames[selectMenu]
+            del listOfQuantity[selectMenu]
+            if len(listOfNames)==0:
+                print("All sold out")
+                break
+        else:
+            continue
 main()
-    
+        
+
 
     
+
+
+
+
+
+
+main()
