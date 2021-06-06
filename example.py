@@ -49,9 +49,7 @@ def main():
         listOfQuantity.append(st._quantity)
         carryOn=input("Do you wnat to continue?(Y or N")
         carryOn=carryOn.upper()
-    selecting(listOfNames,listOfQuantity)
 
-def selecting(listOfNames,listOfQuantity):
     while True:
         print("*"*47)
         print("Welcome to Hello cafe")
