@@ -32,23 +32,59 @@ def main():
     listOfQuantity=[]
     carryOn='Y'
     while carryOn=='Y':
-        name=input("Enter menu's name: ")
-        quantity=int(input("Enter initial quantity of menu: "))
-        category = input("Enter category(DRINK or FOOD): ")
-        if category.upper()=="DRINK":
-            st = Drink(name,quantity)
-        else:
-            question=input("Enter warming option(WARM or COLD): ")
-            if question.upper()=="WARM":
-                isWarm=True
+        nameOn='Y'
+        while nameOn=='Y':
+            try:
+                name=input("Enter menu's name: ")
+            except:
+                print("Please enter menu's name.")
+                continue
             else:
-                isWarm=False
-            st=Food(name,quantity,isWarm)
+                nameOn='N'
+                quantityOn='Y'
+                while quantityOn=='Y':
+                    try:
+                        quantity=int(input("Enter initial quantity of menu: "))
+                    except:
+                        print("Please enter quantity in number.")
+                        continue
+                    else:
+                        quantityOn='N'
+                        categoryOn='Y'
+                        baseCategory={"DRINK":"DRINK","drink":"drink","FOOD":"FOOD","food":"food"}
+                        while categoryOn=='Y':
+                            try:
+                                category = input("Enter category of menu(DRINK/FOOD) ")
+                                category = baseCategory[category]
+                            except:
+                                print("You have to enter drink or food")
+                                continue
+                            else:
+                                categoryOn='N'
+                                if category.upper()=="DRINK":
+                                    st = Drink(name,quantity)
+                                else:
+                                    questionOn='Y'
+                                    baseQuestion={"WARM":"WARM","warm":"warm","COLD":"COLD","cold":"cold"}
+                                    while questionOn=='Y':
+                                        try:
+                                            question=input("Enter warming option(WARM/COLD)")
+                                            question=baseQuestion[question]
+                                        except:
+                                            print("You have to enter warm or cold.")
+                                            continue
+                                        else:
+                                            questionOn='N'
+                                            if question.upper()=="WARM":
+                                                isWarm=True
+                                            else:
+                                                isWarm=False
+                                                st=Food(name,quantity,isWarm)
         listOfMenus.append(st)
         listOfNames.append(st._name)
         listOfQuantity.append(st._quantity)
-        carryOn=input("Do you wnat to continue?(Y or N")
-        carryOn=carryOn.upper()
+        carryOn=input("Do you wnat to continue?(Y or N)")
+        carryOn=carryOn.upper()   
     selecting(listOfNames,listOfQuantity)
 
 def selecting(listOfNames,listOfQuantity):
