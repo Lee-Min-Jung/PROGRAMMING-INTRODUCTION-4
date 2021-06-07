@@ -94,9 +94,24 @@ def selecting(listOfNames,listOfQuantity):
         print("*"*47)
         for i in range(len(listOfNames)):
             print(i+1,")",listOfNames[i],"(quantity:",listOfQuantity[i],")")
-
-        selectMenu=int(input("Enter menu"))-1
-        selectQuantity=int(input("Enter quantity"))
+        selectMenuOn='Y'
+        while selectMenuOn=='Y':
+            try:
+                selectMenu=int(input("Enter menu number: "))-1
+            except:
+                print("Please enter number.")
+                continue
+            else:
+                selectMenuOn='N'
+                selectQuantityOn='Y'
+                while selectQuantityOn=='Y':
+                    try:
+                        selectQuantity=int(input("Enter quantity"))
+                    except:
+                        print("You have to enter number.")
+                        continue
+                    else:
+                        break
         listOfQuantity[selectMenu] -= selectQuantity
         if listOfQuantity[selectMenu]==0:
             print("no left. delete " + listOfNames[selectMenu])
@@ -105,6 +120,9 @@ def selecting(listOfNames,listOfQuantity):
             if len(listOfNames)==0:
                 print("All sold out")
                 break
-        else:
-            continue
+            else:
+                continue
+
+
+
 main()
