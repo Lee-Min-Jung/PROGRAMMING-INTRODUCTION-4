@@ -12,10 +12,8 @@ class Cafe:
         return self._quantity
     def __str__(self):
         return self._name +"(quantity=" + str(self._quantity) + ")\n"
-
 class Drink(Cafe):
     pass
-
 class Food(Cafe):
     def __init__(self, name="", quantity=0, isWarm=True):
         super().__init__(name,quantity)
@@ -24,8 +22,6 @@ class Food(Cafe):
         set._isWarm=isWarm
     def getIsWarm(self):
         return self._isWarm
-
-
 def main():
     listOfMenus=[]
     listOfNames=[]
@@ -34,10 +30,9 @@ def main():
     while carryOn=='Y':
         nameOn='Y'
         while nameOn=='Y':
-            try:
-                name=input("Enter menu's name: ")
-            except:
-                print("Please enter menu's name.")
+            name=input("Enter menu's name: ")
+            if name=="":
+                print("You have to enter any name.")
                 continue
             else:
                 nameOn='N'
@@ -79,14 +74,19 @@ def main():
                                                 isWarm=True
                                             else:
                                                 isWarm=False
-                                                st=Food(name,quantity,isWarm)
+                                                st=Food(name,quantity,isWarm) 
         listOfMenus.append(st)
         listOfNames.append(st._name)
         listOfQuantity.append(st._quantity)
-        carryOn=input("Do you wnat to continue?(Y or N)")
-        carryOn=carryOn.upper()   
+        while True:
+            carryOn=input("Do you wnat to continue?(Y or N)")
+            if carryOn!='Y' and carryOn!='N':
+                print("You have to enter Y or N.")
+                continue
+            else:
+                carryOn=carryOn.upper()
+                break
     selecting(listOfNames,listOfQuantity)
-
 def selecting(listOfNames,listOfQuantity):
     while True:
         print("*"*47)
@@ -102,16 +102,23 @@ def selecting(listOfNames,listOfQuantity):
                 print("Please enter number.")
                 continue
             else:
-                selectMenuOn='N'
-                selectQuantityOn='Y'
-                while selectQuantityOn=='Y':
-                    try:
-                        selectQuantity=int(input("Enter quantity"))
-                    except:
-                        print("You have to enter number.")
-                        continue
-                    else:
-                        break
+                if selectMenu > len(listOfNames)-1:
+                    print("There is only",len(listOfNames),"numbers in menu.")
+                else:
+                    selectMenuOn='N'
+                    selectQuantityOn='Y'
+                    while selectQuantityOn=='Y':
+                        try:
+                            selectQuantity=int(input("Enter quantity"))
+                        except:
+                            print("You have to enter number.")
+                            continue
+                        else:
+                            if listOfQuantity[selectMenu] < selectQuantity:
+                                print("There is/are only", listOfQuantity[selectMenu], "left.")
+                                continue
+                            else:
+                                break
         listOfQuantity[selectMenu] -= selectQuantity
         if listOfQuantity[selectMenu]==0:
             print("no left. delete " + listOfNames[selectMenu])
@@ -122,7 +129,4 @@ def selecting(listOfNames,listOfQuantity):
                 break
             else:
                 continue
-
-
-
 main()
