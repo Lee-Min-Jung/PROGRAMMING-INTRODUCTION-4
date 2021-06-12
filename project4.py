@@ -81,7 +81,7 @@ def main():
                                                 isWarm=True
                                             else:
                                                 isWarm=False
-                                                st=Food(name,quantity,isWarm) 
+                                            st=Food(name,quantity,isWarm) 
 #Making lists
         listOfMenus.append(st)
         listOfNames.append(st._name)
