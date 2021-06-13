@@ -13,8 +13,6 @@ class Cafe:
         return self._quantity
     def __str__(self):
         return self._name +"(quantity=" + str(self._quantity) + ")\n"
-class Drink(Cafe):
-    pass
 class Food(Cafe):
     def __init__(self, name="", quantity=0, isWarm=True):
         super().__init__(name,quantity)
@@ -23,7 +21,6 @@ class Food(Cafe):
         set._isWarm=isWarm
     def getIsWarm(self):
         return self._isWarm
-
 def main():
     listOfMenus=[]
     listOfNames=[]
@@ -63,7 +60,7 @@ def main():
                                 categoryOn='N'
 #Category of Drink 
                                 if category.upper()=="DRINK":
-                                    st = Drink(name,quantity)
+                                    st = Cafe(name,quantity)
                                 else:
 #Category of Food and asking warming option for the menu
                                     questionOn='Y'
